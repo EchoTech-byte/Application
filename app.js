@@ -1,5 +1,6 @@
 class EcoTech{
-    constructor(){
-      
+    constructor(containerId, center, zoom){
+        this.map = L.map(containerId).setView(center, zoom);
+        this.initTileLayer();
     }
 }
