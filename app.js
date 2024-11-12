@@ -6,7 +6,9 @@ class EcoTech{
     initTileLayer() {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Sample for new corales BSIT student'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | EcoTech BSIT Second Year'
         }).addTo(this.map);
     }
+    
 }
+const Mymap = new EcoTech('map', [8.359735, 124.869206], 18);
