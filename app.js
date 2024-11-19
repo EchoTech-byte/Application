@@ -36,6 +36,7 @@ class EcoTech {
             .bindPopup(popupContent);
     }
 
+    
     loadMarkersFromJson(url) {
         fetch(url)
             .then(response => response.json())
