@@ -1,0 +1,48 @@
+[
+    {
+        "latitude": 8.360441,
+        "longitude": 124.867858,
+        "message": "Hazard Tree 1",
+        "description": "This is a tree with broken branches. It poses a risk to nearby",
+        "imageUrl": "assets/0d319dc2-b964-4c24-a1d6-b42c7beccff0.jpg"
+       
+    },
+    {
+        "latitude": 8.359877,
+        "longitude": 124.869026,
+        "message": "Hazard Tree 2",
+        "description": "This tree is leaning dangerously towards the sidewalk.",
+        "imageUrl": "assets/tree2.jpg"
+    
+},
+{
+    "latitude": 8.360059,
+    "longitude": 124.869086,
+    "message": "Hazard Tree 3",
+    "description": "This tree is leaning dangerously towards the sidewalk.",
+    "imageUrl": "assets/tree3.jpg"
+},
+{
+    "latitude": 8.359852,
+    "longitude": 124.869027,
+    "message": "Hazard Tree 4",
+    "description": "This tree is leaning dangerously towards the sidewalk.",
+    "imageUrl": "assets/tree4.jpg"
+
+},
+{
+    "latitude": 8.359314,
+    "longitude": 124.868235,
+    "message": "Hazard Tree 5",
+    "description": "This tree is leaning dangerously towards the road.",
+    "imageUrl": "assets/tree5.jpg"
+},
+{
+    "latitude": 8.359017,
+    "longitude": 124.868144,
+    "message": "Hazard Tree 6",
+    "description": "This wire is leaning dangerously towards the tree.",
+    "imageUrl": "assets/tree6.jpg"
+
+}
+]
