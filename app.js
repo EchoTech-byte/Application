@@ -2,6 +2,7 @@ class MapHandler {
     constructor(containerId, center, zoom) {
         this.map = L.map(containerId).setView(center, zoom);
         this.initTileLayer();
+        this.markers = [];
     }
 
     initTileLayer() {
@@ -19,10 +20,13 @@ class MapHandler {
                 <p>${description}</p>
             </div>
         `;
-        
-        L.marker([lat, long])
+
+        const marker = L.marker([lat, long])
             .addTo(this.map)
             .bindPopup(popupContent);
+
+        this.markers.push(marker);
+        return marker;
     }
 
     loadMarkersFromJson(url) {
@@ -37,14 +41,13 @@ class MapHandler {
     }
 }
 
-
 class EcoTech extends MapHandler {
     constructor(containerId, center, zoom) {
-        super(containerId, center, zoom);  
-        this.hazardTreeIcon = this.HazardTreeIcon();  
+        super(containerId, center, zoom);
+        this.hazardTreeIcon = this.HazardTreeIcon();
+        this.treeData = []; 
     }
 
-  
     HazardTreeIcon() {
         return L.icon({
             iconUrl: 'assets/hazard_tree.png',
@@ -54,7 +57,6 @@ class EcoTech extends MapHandler {
         });
     }
 
-   
     addMarker(lat, long, message, imageUrl, description) {
         const popupContent = `
             <div style="text-align: center;">
@@ -64,12 +66,43 @@ class EcoTech extends MapHandler {
             </div>
         `;
 
-        L.marker([lat, long], { icon: this.hazardTreeIcon })
+        const marker = L.marker([lat, long], { icon: this.hazardTreeIcon })
             .addTo(this.map)
             .bindPopup(popupContent);
+
+        this.markers.push(marker);
+        return marker;
+    }
+
+    createHazardTreeList(data) {
+        const listContainer = document.getElementById("hazard-tree-items");
+        listContainer.innerHTML = ''; 
+
+        data.forEach((tree, index) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = tree.message;
+            listItem.addEventListener("click", () => {
+                this.map.setView([tree.latitude, tree.longitude],18); 
+                this.markers[index].openPopup(); 
+            });
+            listContainer.appendChild(listItem);
+        });
+    }
+
+    loadMarkersAndListFromJson(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.treeData = data;
+                data.forEach(tree => {
+                    this.addMarker(tree.latitude, tree.longitude, tree.message, tree.imageUrl, tree.description);
+                });
+                this.createHazardTreeList(data); 
+            })
+            .catch(error => console.error("Error Loading markers:", error));
     }
 }
 
 
-const myMap = new EcoTech('map', [8.359735, 124.869206], 18);
-myMap.loadMarkersFromJson('app.json');
+const myMap = new EcoTech('map', [8.359735, 124.869206], 6);
+myMap.loadMarkersAndListFromJson('app.json'); 

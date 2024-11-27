@@ -22,15 +22,42 @@
        margin-left: 2rem ;
        justify-content: center;
    }
-#map{
-   width: 60%;
+    #map {
+   width: 60%;             
    height: 850px;
-border-radius: 5%;
-margin-top: 5%;
-margin-bottom: 5%;
-border: 5px solid #444; 
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
-margin: 5% auto;
+   border-radius: 5%;
+   margin-top: 5%;
+   margin-bottom: 5%;
+   border: 5px solid #444;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+   margin: 5% auto;
+   float: right;             
+}
+
+#tree-list {
+   width: 35%;               
+   height: 850px;
+        
+   padding: 10px;
+   border-right: 2px solid #ccc; 
+   float: left;              
+   box-sizing: border-box;
+   margin-top: 5%; 
+}
+
+#tree-list ul {
+   list-style-type: none;
+   padding-left: 0;
+}
+
+#tree-list li {
+   padding: 10px;
+   cursor: pointer;
+   border-bottom: 1px solid #ddd;
+}
+
+#tree-list li:hover {
+   background-color: #f0f0f0;
 }
 
 </style>
@@ -82,8 +109,14 @@ margin: 5% auto;
 
 
   </main>
-  
+   <div id="tree-list">
+    <h3>Hazard Trees</h3>
+    <ul id="hazard-tree-items">
+       
+    </ul>
+</div>
    <div id="map"></div>
+  
 
 </body>
 <script src="app.js"></script>
