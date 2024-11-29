@@ -80,11 +80,31 @@ class EcoTech extends MapHandler {
 
         data.forEach((tree, index) => {
             const listItem = document.createElement("li");
-            listItem.textContent = tree.message;
+
+            const treeImage = document.createElement("img");
+            treeImage.src = tree.imageUrl;
+            treeImage.alt = tree.message;
+            treeImage.style.width = '50px';
+            treeImage.style.height = '50px';
+            treeImage.style.marginRight = '10px';
+            treeImage.style.borderRadius = '5px';
+
+            const textContainer = document.createElement("div");
+            textContainer.style.display = "inline-block";
+            textContainer.innerHTML = `
+                <strong>${tree.message}</strong><br/>
+                <small>${tree.description}</small>
+            `;
+
+            listItem.appendChild(treeImage);
+            listItem.appendChild(textContainer);
+            listItem.style.cursor = "pointer";
+
             listItem.addEventListener("click", () => {
-                this.map.setView([tree.latitude, tree.longitude],18); 
+                this.map.setView([tree.latitude, tree.longitude], 18); 
                 this.markers[index].openPopup(); 
             });
+
             listContainer.appendChild(listItem);
         });
     }
@@ -102,7 +122,5 @@ class EcoTech extends MapHandler {
             .catch(error => console.error("Error Loading markers:", error));
     }
 }
-
-
 const myMap = new EcoTech('map', [8.359735, 124.869206], 6);
 myMap.loadMarkersAndListFromJson('app.json'); 
