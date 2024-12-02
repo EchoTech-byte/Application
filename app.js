@@ -101,7 +101,9 @@ class EcoTech extends MapHandler {
             listItem.style.cursor = "pointer";
 
             listItem.addEventListener("click", () => {
-                this.map.setView([tree.latitude, tree.longitude], 18); 
+                this.map.flyTo([tree.latitude, tree.longitude], 18, {
+                    duration: 2 
+                });
                 this.markers[index].openPopup(); 
             });
 
@@ -117,10 +119,38 @@ class EcoTech extends MapHandler {
                 data.forEach(tree => {
                     this.addMarker(tree.latitude, tree.longitude, tree.message, tree.imageUrl, tree.description);
                 });
-                this.createHazardTreeList(data); 
+                this.createHazardTreeList(data);
+                this.setupSearch();  
             })
             .catch(error => console.error("Error Loading markers:", error));
     }
+
+    setupSearch() {
+        const searchInput = document.getElementById('studentSearchBar');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            this.filterTreeList(searchTerm);
+        });
+    }
+
+    filterTreeList(searchTerm) {
+        const listContainer = document.getElementById("hazard-tree-items");
+        const filteredData = this.treeData.filter(tree => {
+            return tree.message.toLowerCase().includes(searchTerm) || tree.description.toLowerCase().includes(searchTerm);
+        });
+
+    
+        listContainer.innerHTML = '';
+        this.createHazardTreeList(filteredData);
+        
+
+        this.markers.forEach(marker => marker.remove());
+        filteredData.forEach(tree => {
+            this.addMarker(tree.latitude, tree.longitude, tree.message, tree.imageUrl, tree.description);
+        });
+    }
 }
+
+
 const myMap = new EcoTech('map', [8.359735, 124.869206], 6);
-myMap.loadMarkersAndListFromJson('app.json'); 
+myMap.loadMarkersAndListFromJson('app.json');
